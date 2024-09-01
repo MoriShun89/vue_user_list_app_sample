@@ -3,6 +3,8 @@ import AppHeader from './components/AppHeader.vue';
 import UserList from './components/UserList.vue';
 import RegisterUserArea from './components/RegisterUserArea.vue';
 
+import axios from 'axios';
+
 import { ref } from 'vue'
 
 // const users = ref([
@@ -24,10 +26,18 @@ import { ref } from 'vue'
 // ]);
 const users = ref([]);
 
+// const getUsers = async () => {
+//   const response = await fetch('http://localhost:3000/user');
+//   const data = await response.json();
+//   users.value = data;
+// };
+
+// axiosを利用してデータを取得
+// 参考：https://qiita.com/BRSF/items/565e9de3b5695981ae59
 const getUsers = async () => {
-  const response = await fetch('http://localhost:3000/user');
-  const data = await response.json();
-  users.value = data;
+  await axios.get('http://localhost:3000/user').then((res)=>{
+    users.value = res.data;
+  });
 };
 getUsers();
 
